@@ -1,0 +1,25 @@
+{
+  "name": "puke",
+  "version": "0.0.1",
+  "homepage": "https://github.com/iopqrst/puke",
+  "authors": [
+    "iopqrst <opqrst@163.com>"
+  ],
+  "description": "a magic project (node)",
+  "main": "app.js",
+  "keywords": [
+    "puke"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "/public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "jquery": "~2.1.1"
+  }
+}
