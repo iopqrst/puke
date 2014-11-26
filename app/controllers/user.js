@@ -1,21 +1,23 @@
 var UserModel = require('../models/userModel');
 //跳转到登录页面
 exports.showSignIn = function(req, res) {
-	res.render('signin',{
-		title : '登录页面'
+	res.render('signin', {
+		title: '登录页面'
 	});
 };
 //跳转到注册页面
 exports.showSignUp = function(req, res) {
-	res.render('signup',{
-		title : '注册页面'
+	res.render('signup', {
+		title: '注册页面'
 	});
 };
 
 exports.signin = function(req, res) {
 	var _user = req.body.user;
 
-	UserModel.findOne({ name: _user.name }, function(err, user) {
+	UserModel.findOne({
+		name: _user.name
+	}, function(err, user) {
 		if (err) {
 			console.log(err);
 		}
@@ -44,8 +46,8 @@ exports.signin = function(req, res) {
 //登录
 exports.logout = function(req, res) {
 	delete req.session.session_of_user;
-	//TODO 直接调用这个方法会在这一行出现问题 app is not defined
-	delete app.locals.user; 
+	//TODO 直接调用这个方法会在这一行出现问题 app is not defined, 所以没有在这里调用而是在router.js中重写的
+	delete app.locals.user;
 	res.redirect('/');
 };
 
@@ -53,12 +55,18 @@ exports.logout = function(req, res) {
 exports.signup = function(req, res) {
 	var _user = req.body.user;
 
-	UserModel.find({ name: _user.name }, function(err, user) {
+	console.log(_user);
+
+	UserModel.findOne({
+		name: _user.name
+	}, function(err, user) {
 		if (err) {
 			console.info(err);
 		}
-
-		if (user) {//存在跳转到登录页面
+		console.info('------------query user');
+		
+		console.info(user);
+		if (!!user) { //存在跳转到登录页面
 			return res.redirect('/signin');
 		} else {
 			var userEntity = new UserModel({
@@ -82,7 +90,7 @@ exports.queryUserList = function(req, res) {
 		if (err) {
 			throw err;
 		}
-		
+
 		res.render('userlist', {
 			title: '用户列表',
 			users: users
@@ -96,11 +104,11 @@ exports.queryUserList = function(req, res) {
 exports.validUser = function(req, res, next) {
 	var _user = req.session.session_of_user;
 	console.log('----------validUser');
-	if(!_user) {
+	if (!_user) {
 		res.redirect('/signin');
 		return;
 	}
-	
+
 	next();
 };
 
@@ -110,7 +118,7 @@ exports.validUser = function(req, res, next) {
 exports.validUserRole = function(req, res, next) {
 	var _user = req.session.session_of_user;
 	console.log('----------validUserRole');
-	if(_user.role && _user.role > 10) {
+	if (_user.role && _user.role > 10) {
 		next();
 	} else {
 		console.log('-----登录用户没有权限操作');

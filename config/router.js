@@ -1,5 +1,4 @@
 var index = require('../app/controllers/index');
-var movie = require('../app/controllers/movie');
 var user = require('../app/controllers/user');
 
 module.exports = function(app) {

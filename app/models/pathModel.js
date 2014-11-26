@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var MovieSchema = require('../schemas/movieSchema.js');
-var Movie = mongoose.model('Movie', MovieSchema);
+var MpathSchema = require('../schemas/mpathSchema.js');
+var Mpath = mongoose.model('Mpath', MpathSchema);
 
-module.exports = Movie;
+module.exports = Mpath;

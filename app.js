@@ -33,6 +33,7 @@ app.use(session({
 		collection: "sessions"
 	})
 }));
+
 app.locals.moment = require('moment');
 
 if ("development" === app.get("env")) {

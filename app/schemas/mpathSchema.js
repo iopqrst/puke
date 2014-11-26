@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
-var PathSchema = new Schema({
-	pathNames: [],
+var MpathSchema = new Schema({
+	mpaths: [],
 	user: {type: ObjectId, ref:'User'},
 	meta: {
 		createAt: {
@@ -17,7 +17,7 @@ var PathSchema = new Schema({
 	}
 });
 
-PathSchema.pre('save', function(next) {
+MpathSchema.pre('save', function(next) {
 	if (this.isNew) {
 		this.meta.createAt = this.meta.updateAt = Date.now();
 	} else {
@@ -27,10 +27,10 @@ PathSchema.pre('save', function(next) {
 	next();
 });
 
-PathSchema.statics = {
+MpathSchema.statics = {
 	fetch: function(cb) {
 		return this.find({}).sort('meta.updateAt').exec(cb);
 	}
 };
 
-module.exports = PathSchema;
+module.exports = MpathSchema;
